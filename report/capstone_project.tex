@@ -48,7 +48,7 @@
 	\begin{minipage}[t]{7cm}
 		\flushleft
 		Juan José Madrigal Martínez\\
-		January 30, 2017\\
+		February 5, 2017\\
 	\end{minipage}
 	\hfill
 	%%% Contact
@@ -127,13 +127,11 @@
 	Once the algorithm is accurately tuned, the metric(s) used to estimate the quality of our clustering will comprise
 	
 	\begin{itemize}
-		\item Homogeneity
-		\item Completeness
-		\item V-measure
-		\item Adjusted Rand Index
-		\item Adjusted Mutual Information
 		\item Silhouette Coefficient
+		\item Calinski-Harabaz Index
 	\end{itemize} 
+	
+	because these do not require knowledge of the ground truth classes.\\
 	
 	%In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:\\
 	
@@ -189,7 +187,7 @@
 	
 	The two first \texttt{Jupyter} notebooks deal with some exploratory visualisation\\
 	
-	\href{https://github.com/jxm-math/capstone_project/blob/master/data_extractor.ipynb}{\textbf{capstone\_project/data\_extractor.ipynb}}\\
+	\href{https://github.com/jxm-math/capstone_project/blob/master/1.%20data_extractor.ipynb}{\textbf{capstone\_project/1. data\_extractor.ipynb}}\\
 	
 	Some of the frames of an exploratory video:
 	
@@ -207,7 +205,7 @@
 		\item Dimensionality reduction (\texttt{rescale})
 	\end{enumerate}
 	
-	\href{https://github.com/jxm-math/capstone_project/blob/master/exploration_clustering.ipynb}{\textbf{capstone\_project/exploration\_clustering.ipynb}}\\
+	\href{https://github.com/jxm-math/capstone_project/blob/master/2.%20exploration_clustering.ipynb}{\textbf{capstone\_project/2. exploration\_clustering.ipynb}}\\
 	
 	Visualisation of point clouds:
 	
@@ -357,7 +355,7 @@
 	
 	\vspace{0.15cm}
 	
-	The notebook \href{https://github.com/jxm-math/capstone_project/blob/master/parameter_tuning.ipynb}{parameter\_tuning.ipynb} deals with the identification of the optimal parameters \texttt{eps} and \texttt{min\_samples} inside the \texttt{DBScan} algorithm. For each of the exploratory pairs
+	The notebook \href{https://github.com/jxm-math/capstone_project/blob/master/3.%20parameter_tuning.ipynb}{3. parameter\_tuning.ipynb} deals with the identification of the optimal parameters \texttt{eps} and \texttt{min\_samples} inside the \texttt{DBScan} algorithm. For each of the exploratory pairs
 	
 	\begin{quote}
 		\begin{verbatim}
@@ -367,7 +365,7 @@
 		\end{verbatim}
 	\end{quote}
 	
-	a \texttt{DBScan} method has been applied to the training data and a Sum of Square Errors (when comparing the output with the expected output registered by direct observation of the original videos) has been stored. The pair in which the best local minimal has been achieved is \texttt{eps = 3 , min\_samples = 120}, and this values have been used for the final implementation.\\
+	a \texttt{DBScan} method has been applied to the training data and a Sum of Square Errors (when comparing the output with the expected output registered by direct observation of the original videos) has been stored. The pair in which the best local minimal has been achieved is \texttt{eps = 6 , min\_samples = 400}, and this values have been used for the final implementation.\\
 	
 	%In this section, you will need to discuss the process of improvement you made upon the algorithms and techniques you used in your implementation. For example, adjusting parameters for certain models to acquire improved solutions would fall under the refinement category. Your initial and final solutions should be reported, as well as any significant intermediate results as necessary. Questions to ask yourself when writing this section:\\
 	
@@ -387,6 +385,21 @@
 	
 	\vspace{0.15cm}
 	
+	The notebook \href{https://github.com/jxm-math/capstone_project/blob/master/4.%20implementation_validation.ipynb}{4. implementation\_validation.ipynb} deals with the evaluation and validation.\\
+		
+	Our tuned \texttt{DBScan} algorithm is applied to our training videos. We compare the expected clusters and the output given. We also measure the Silhouette Coefficient \cite{silhouette_coefficient} and the Calinski-Harabaz Index \cite{calinski_harabaz_index}. Some of the calculations give rise to a \texttt{Memory Error}, so we do not have the scores for every training video.\\
+	
+	\begingroup
+	\renewcommand{\section}[2]{}%
+	\begin{thebibliography}{}
+		\bibitem{silhouette_coefficient}
+		\href{http://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient}{Silhouette Coefficient - SKLearn}
+		\bibitem{calinski_harabaz_index}
+		\href{http://scikit-learn.org/stable/modules/clustering.html#calinski-harabaz-index}{Calinski-Harabaz Index - SKLearn}
+	\end{thebibliography}
+	\endgroup
+
+	
 	%In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model?s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:\\
 	
 	%Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?\\
@@ -397,6 +410,10 @@
 	{{\large\textbf{\color{dark}Justification}}}
 	
 	\vspace{0.15cm}
+	
+	The results obtained (\href{https://github.com/jxm-math/capstone_project/blob/master/4.%20implementation_validation.ipynb}{4. implementation\_validation.ipynb}) are quite good, but not excellent; further improvement should be done.\\
+		
+	Comparing our results with those in our Benchmark Model \href{http://www.wisdom.weizmann.ac.il/~vision/VideoAnalysis/Demos/SpaceTimeActions/SpaceTimeActions_pami07.pdf}{Actions as Space-Time Shapes}, we may appreciate that the last ones also run into a great number of misclassifications (2.17\%, 7.91\% and 36.40\% for different methods). This shows that the movement-events recognition is in general quite a difficult problems where major Machine Learning techniques have to be studied and implemented.\\ 
 	
 	%In this section, your model?s final solution and its results should be compared to the benchmark you established earlier in the project using some type of statistical analysis. You should also justify whether these results and the solution are significant enough to have solved the problem posed in the project. Questions to ask yourself when writing this section:\\
 	
@@ -416,6 +433,17 @@
 	
 	\vspace{0.15cm}
 	
+	The notebook \href{https://github.com/jxm-math/capstone_project/blob/master/5.%20final_visualisation.ipynb}{5. final\_visualisation.ipynb} deals with the final visualisation.\\
+		
+	\begin{center}
+		\includegraphics[scale=0.6]{vis0.png}
+		\includegraphics[scale=0.6]{vis1.png}
+		\includegraphics[scale=0.6]{vis3.png}
+		\includegraphics[scale=0.6]{vis4.png}
+		\includegraphics[scale=0.6]{vis7.png}
+		\includegraphics[scale=0.6]{vis8.png}
+	\end{center}
+	
 	%In this section, you will need to provide some form of visualization that emphasizes an important quality about the project. It is much more free-form, but should reasonably support a significant result or characteristic about the problem that you want to discuss. Questions to ask yourself when writing this section:\\
 	
 	%Have you visualized a relevant or important quality about the problem, dataset, input data, or results?\\
@@ -425,6 +453,12 @@
 	{{\large\textbf{\color{dark}Reflection}}}
 	
 	\vspace{0.15cm}
+	
+	This Udacity ML Nanodegree Capstone Project has been a very enriching experience. It has been difficult but it has provided most encouraging results.\\
+	
+	Perhaps the toughest part in the project has been the video preprocessing. It needed a lot of memory and time, so several methods had to be implemented (e.g. the use of Python generators instead of list comprehension) until finding one that could properly deal with such huge datasets.\\
+	
+	The posterior tuning and validation has also been quite a subtle point. Almost all the clustering metrics assume knowledge of the ground truth classes, which in our setting is totally non-viable (even when the movement-events may be enumerated by direct visualisation).\\
 	
 	%In this section, you will summarize the entire end-to-end problem solution and discuss one or two particular aspects of the project you found interesting or difficult. You are expected to reflect on the project as a whole to show that you have a firm understanding of the entire process employed in your work. Questions to ask yourself when writing this section:\\
 	
@@ -436,6 +470,13 @@
 	{{\large\textbf{\color{dark}Improvement}}}
 	
 	\vspace{0.15cm}
+	
+	There are several aspects in which this method may be improved in further work:
+	
+	\begin{itemize}
+		\item The movement masks extraction algorithm may be tuned to capture better the movement-events.
+		\item The \texttt{eps} and \texttt{min\_samples} parameters could be dynamically tuned in function of the input, if different fixed-camera contexts are to be considered. For instance, different parameters would be needed for driving cars or walking people. 
+	\end{itemize} 
 	
 	%In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:\\
 	
